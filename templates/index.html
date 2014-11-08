@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="static/vendor/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <button id="button">{{ first_word }}</button>
+</body>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var context = new AudioContext();
+
+    var buffers = {};
+
+    function load_sound(name){
+        var url = 'static/audio/test/'+name+'.mp3';
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+        request.onload = function(){
+            context.decodeAudioData(request.response, function(buffer){
+                buffers[name] = buffer;
+            }, function(){
+                console.log('there was an error decoding audio');
+            });
+        }
+        request.send();
+    }
+
+    function play(name){
+        var buffer = buffers[name];
+        var source = context.createBufferSource();
+        source.buffer = buffer;
+        source.connect(context.destination);
+        source.start(0);
+    }
+
+    // Load all the sounds
+    $.getJSON('api/word').done(function(response){
+        response.words.forEach(function(word){
+            load_sound(word);
+        });
+    });
+
+    $('#button').click(function(){
+        var button = $(this);
+        var previous_word = button.text();
+        $.getJSON('api/word/'+previous_word).done(function(response){
+            play(response.next_word);
+            button.text(response.following_word);
+        });
+    });
+});
+
+</script>
+</html>
