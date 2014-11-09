@@ -1,12 +1,9 @@
 #! /usr/bin/env python
 
-import itertools
-import string
-from collections import defaultdict
-import random
 import redis
+from flask import Flask, render_template
 
-from flask import Flask, request, jsonify, render_template
+from config import CONF
 
 
 app = Flask(__name__)
@@ -25,9 +22,10 @@ app.redis_client = redis.Redis()
 @app.route('/<hash>')
 def index(hash):
 
-    word_index = app.redis_client.incr(hash) % len(app.words)
-    previous_word = app.words[(word_index - 1) % len(app.words)]
-    word = app.words[word_index % len(app.words)]
+    len_words = len(app.words)
+    word_index = app.redis_client.incr(hash) % len_words
+    previous_word = app.words[(word_index - 1) % len_words]
+    word = app.words[word_index]
 
     return render_template(
         'index.html',
@@ -37,4 +35,8 @@ def index(hash):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(
+        host='0.0.0.0',
+        port=5000,
+        debug=CONF.DEBUG
+    )

@@ -1,2 +1,5 @@
 flask
--e git://github.com/andreasjansson/andreasmusic.git#egg=andreasmusic
+# -e git://github.com/andreasjansson/andreasmusic.git#egg=andreasmusic
+fabric
+uwsgi
+redis
