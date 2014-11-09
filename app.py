@@ -19,7 +19,7 @@ app.redis_client = redis.Redis()
 
 
 @app.route('/', defaults={'hash': 'default'})
-@app.route('/<hash>')
+@app.route('/h/<hash>')
 def index(hash):
 
     len_words = len(app.words)
@@ -31,6 +31,15 @@ def index(hash):
         'index.html',
         previous_word=previous_word,
         word=word
+    )
+
+
+@app.route('/first')
+def first():
+    return render_template(
+        'index.html',
+        previous_word='<FIRST>',
+        word=app.words[0]
     )
 
 
