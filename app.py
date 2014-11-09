@@ -35,7 +35,6 @@ def index(hash):
 
 
 if __name__ == '__main__':
-    print 'DEBUGGING??????', CONF.DEBUG
     app.run(
         host='0.0.0.0',
         port=5000,

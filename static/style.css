@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+}
+
+#button {
+    padding: 5px 10px;
+    margin: 10px;
+    display: inline;
+    font-size: 50px;
+    background: #777 url(button.png) repeat-x bottom;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    text-shadow: 1px 1px #666;
+}
