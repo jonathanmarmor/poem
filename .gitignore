@@ -1,6 +1,8 @@
 .DS_Store
 config_local.py
 *.dump
+github_deploy_key
+github_deploy_key.pub
 
 # Python
 
