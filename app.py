@@ -19,7 +19,7 @@ app.redis_client = redis.Redis()
 
 
 @app.route('/', defaults={'hash': 'default'})
-@app.route('/<hash>')
+@app.route('/h/<hash>')
 def index(hash):
 
     len_words = len(app.words)
