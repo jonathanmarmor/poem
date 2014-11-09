@@ -37,12 +37,12 @@ def update_repo():
     if not exists(os.path.join(APP_DIR, '.git')):
         print(red('FIRST CHECKOUT'))
         with cd(INSTALL_HOME):
-            run('git clone {}'.format(REPO))
+            sudo('git clone {}'.format(REPO))
 
     with cd(APP_DIR):
-        run('git fetch --all')
-        run('git checkout -f master')
-        run('git pull')
+        sudo('git fetch --all')
+        sudo('git checkout -f master')
+        sudo('git pull')
 
 
 @task
