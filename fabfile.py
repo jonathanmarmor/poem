@@ -58,7 +58,8 @@ def install_dependencies():
         'python-dev',
         'uwsgi-plugin-python',
         'htop',
-        'ipython'
+        'ipython',
+        'redis-server'
     ]
     sudo('apt-get -y update')
     sudo('apt-get -y upgrade')
