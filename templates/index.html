@@ -4,9 +4,11 @@
     <script src="static/vendor/jquery-2.1.1.min.js"></script>
 </head>
 <body>
-    <button id="button">{{ first_word }}</button>
+    <button id="button">{{ previous_word }}</button>
 </body>
 <script type="text/javascript">
+
+word = "{{ word }}";
 
 $(document).ready(function(){
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -15,7 +17,7 @@ $(document).ready(function(){
     var buffers = {};
 
     function load_sound(name){
-        var url = 'static/audio/test/'+name+'.mp3';
+        var url = 'static/audio/'+name+'.mp3';
         var request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.responseType = 'arraybuffer';
@@ -37,20 +39,10 @@ $(document).ready(function(){
         source.start(0);
     }
 
-    // Load all the sounds
-    $.getJSON('api/word').done(function(response){
-        response.words.forEach(function(word){
-            load_sound(word);
-        });
-    });
+    load_sound(word);
 
     $('#button').click(function(){
-        var button = $(this);
-        var previous_word = button.text();
-        $.getJSON('api/word/'+previous_word).done(function(response){
-            play(response.next_word);
-            button.text(response.following_word);
-        });
+        play(word);
     });
 });
 
