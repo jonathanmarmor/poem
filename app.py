@@ -18,6 +18,11 @@ every time anyone takes a photo there is that much less light in circulation
 app.redis_client = redis.Redis()
 
 
+@app.route('/test')
+def test():
+    return 'ok'
+
+
 @app.route('/', defaults={'hash': 'default'})
 @app.route('/<hash>')
 def index(hash):
