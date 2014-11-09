@@ -32,7 +32,7 @@ def update_repo():
     if not exists(ssh_dir):
         run('mkdir -p {}'.format(ssh_dir))
     ssh_id = os.path.join(ssh_dir, 'id_rsa')
-    put(os.path.join(THIS_DIR, 'github_deploy_key'), ssh_id, use_sudo=True, mode=0600)
+    put(os.path.join(THIS_DIR, 'conf', 'github_deploy_key'), ssh_id, use_sudo=True, mode=0600)
 
     if not exists(os.path.join(APP_DIR, '.git')):
         print(red('FIRST CHECKOUT'))
