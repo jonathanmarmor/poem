@@ -34,6 +34,15 @@ def index(hash):
     )
 
 
+@app.route('/first')
+def first():
+    return render_template(
+        'index.html',
+        previous_word='<FIRST>',
+        word=app.words[0]
+    )
+
+
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
