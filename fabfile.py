@@ -26,7 +26,7 @@ def update_repo():
     notice('Updating application repo from GitHub')
 
     if not exists(INSTALL_HOME):
-        sudo('mkdir -p {}'.format(INSTALL_HOME))
+        run('mkdir -p {}'.format(INSTALL_HOME))
 
     ssh_dir = '/home/{}/.ssh'.format(env.user)
     if not exists(ssh_dir):
@@ -37,12 +37,12 @@ def update_repo():
     if not exists(os.path.join(APP_DIR, '.git')):
         print(red('FIRST CHECKOUT'))
         with cd(INSTALL_HOME):
-            sudo('git clone {}'.format(REPO))
+            run('git clone {}'.format(REPO))
 
     with cd(APP_DIR):
-        sudo('git fetch --all')
-        sudo('git checkout -f master')
-        sudo('git pull')
+        run('git fetch --all')
+        run('git checkout -f master')
+        run('git pull')
 
 
 @task
