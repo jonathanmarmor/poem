@@ -25,9 +25,8 @@ def notice(s):
 def update_repo():
     notice('Updating application repo from GitHub')
 
-    if not exists(INSTALL_HOME):
-        sudo('mkdir -p {}'.format(INSTALL_HOME))
-        sudo('chown {} {}'.format(env.user, INSTALL_HOME))
+    sudo('mkdir -p {}'.format(INSTALL_HOME))
+    sudo('chown {} {}'.format(env.user, INSTALL_HOME))
 
     ssh_dir = '/home/{}/.ssh'.format(env.user)
     if not exists(ssh_dir):
