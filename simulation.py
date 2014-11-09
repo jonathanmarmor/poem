@@ -3,7 +3,7 @@ import random
 import numpy as np
 from andreasmusic import audio
 
-audio_dir = 'static/audio'
+audio_dir = 'static/audio/mp3'
 
 words = '''
 a photo has no light of its own but it takes light to be seen
@@ -16,13 +16,13 @@ notes = {
     'has'         : ['E 3'],
     'no'          : ['G 3'],
     'light'       : ['Bb2'],
-    'of'          : ['E 3'],
+    'of'          : ['Eb3'], # orig=E
     'its'         : ['D 3'],
     'own'         : ['E 3'],
     'but'         : ['G 3'],
     'it'          : ['A 3'],
     'takes'       : ['C 4'],
-    'to'          : ['Eb3'],
+    'to'          : ['D 3'], # orig=Eb
     'be'          : ['G 3'],
     'seen'        : ['Bb3'],
     'every'       : ['G 3'], # g a
@@ -31,7 +31,7 @@ notes = {
     'there'       : ['C 3'],
     'is'          : ['Bb2'],
     'that'        : ['D 3'],
-    'much'        : ['E 3'],
+    'much'        : ['Eb3'], # orig=E
     'less'        : ['D 3'],
     'in'          : ['C 3'],
     'circulation' : ['D 3'], # d c bb c
@@ -71,11 +71,13 @@ class Player(object):
 
 def read_sung_words():
     sung_words = {}
-    filenames = glob.glob('%s/*.wav' % audio_dir)
+    filenames = glob.glob('%s/*.mp3' % audio_dir)
     for filename in filenames:
-        word = filename.replace('.wav', '').replace(audio_dir, '').replace('reverb-', '')
+        word = filename.replace('.mp3', '').replace('%s/' % audio_dir, '')
         sung_words[word] = audio.read(filename)
     return sung_words
+
+sung_words = read_sung_words()
 
 def main():
     player0 = Player()
@@ -90,8 +92,6 @@ def main():
     players.append(player0)
 
     a = audio.Audio(np.zeros(((TIME + 5) * LENGTH, 2)), SR)
-
-    sung_words = read_sung_words()
 
     for t in range(TIME):
 
