@@ -13,7 +13,10 @@ app.secret_key = '\x9d\xc6i:\x04\x1b\x1d\xa7\x8co\xb2\xd4a\x02\xbfM'
 
 
 # DEFAULT_POEM = """Ancient attempts to define poetry such as Aristotle's Poetics focused on the uses of speech in rhetoric drama song and comedy Later attempts concentrated on features such as repetition verse form and rhyme and emphasized the aesthetics which distinguish poetry from more objectively informative prosaic forms of writing"""
-DEFAULT_POEM = 'a as b c cs d ds e f fs g gs'
+# DEFAULT_POEM = 'a as b c cs d ds e f fs g gs'
+
+DEFAULT_POEM = 'a photo has no light of its own but it takes light to be seen every time anyone takes a photo there is that much less light in circulation'
+
 
 
 def pairwise(iterable):
@@ -38,6 +41,16 @@ def make_word_map(poem):
     # Make the whole thing circular
     word_map[poem[-1]].append(poem[0])
     return poem, word_map
+
+
+# from collections import Counter
+
+# def analyse(word_map):
+#     counter = Counter()
+#     for w in word_map:
+#         counter[w] = len(word_map[w])
+#     print
+
 
 
 app.poem, app.word_map = make_word_map(DEFAULT_POEM)
@@ -68,4 +81,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

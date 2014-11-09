@@ -15,7 +15,7 @@ $(document).ready(function(){
     var buffers = {};
 
     function load_sound(name){
-        var url = 'static/audio/test/'+name+'.mp3';
+        var url = 'static/audio/'+name+'.wav';
         var request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.responseType = 'arraybuffer';
