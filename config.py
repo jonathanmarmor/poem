@@ -5,8 +5,12 @@ class Configuration(object):
     def __init__(self):
         self.load(Default)
 
-        import config_local
-        self.load(config_local)
+        try:
+            import config_local
+            self.load(config_local)
+        except ImportError:
+            pass
+
 
     def load(self, module):
         """Loads variables from a module or class"""
