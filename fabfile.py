@@ -50,6 +50,7 @@ def update_repo():
 def install_dependencies():
     notice('Updating system packages')
     packages = [
+        'python-setuptools',
         'supervisor',
         'nginx-full',
         'build-essential',
