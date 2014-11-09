@@ -18,25 +18,20 @@ every time anyone takes a photo there is that much less light in circulation
 app.redis_client = redis.Redis()
 
 
-@app.route('/test')
-def test():
-    return 'ok'
+@app.route('/', defaults={'hash': 'default'})
+@app.route('/<hash>')
+def index(hash):
 
+    len_words = len(app.words)
+    word_index = app.redis_client.incr(hash) % len_words
+    previous_word = app.words[(word_index - 1) % len_words]
+    word = app.words[word_index]
 
-# @app.route('/', defaults={'hash': 'default'})
-# @app.route('/<hash>')
-# def index(hash):
-
-#     len_words = len(app.words)
-#     word_index = app.redis_client.incr(hash) % len_words
-#     previous_word = app.words[(word_index - 1) % len_words]
-#     word = app.words[word_index]
-
-#     return render_template(
-#         'index.html',
-#         previous_word=previous_word,
-#         word=word
-#     )
+    return render_template(
+        'index.html',
+        previous_word=previous_word,
+        word=word
+    )
 
 
 if __name__ == '__main__':
